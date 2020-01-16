@@ -1,10 +1,10 @@
 var router = require('express').Router();
 
 router.get('/', function (req, res, next) {
-    console.log(req.query)
-    res.send(req.query)
+    res.send({ message: "All ok" })
 });
 
+//include all route
 router.use('/user', require('./users'));
 
 router.use(function (err, req, res, next) {
@@ -19,7 +19,6 @@ router.use(function (err, req, res, next) {
     }
     return next(err);
 });
-
 
 
 module.exports = router;
