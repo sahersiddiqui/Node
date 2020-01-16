@@ -45,11 +45,19 @@ router.post(
 /**
  * Get Single user detail
  */
-//create user
 router.get(
 	'/:id',
 	(req, res, next) => {
 		User.find({ _id: req.params.id }).then(user => res.send(user));
+	}
+);
+/**
+ * Update  user detail
+ */
+router.put(
+	'/:id',
+	(req, res, next) => {
+		User.find({ _id: req.params.id }).update(req.body).then(user => res.send(user));
 	}
 );
 
