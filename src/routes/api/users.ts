@@ -1,15 +1,15 @@
-var express = require('express');
-var router = express.Router();
+import { Router } from "express"
 const { body } = require('express-validator');
 const { sanitizeBody } = require('express-validator');
 const { check, validationResult } = require('express-validator');
 
+const router: Router = Router();
 
-var User = require(process.cwd() + "/models/user.model.js")
+var User = require(process.cwd() + "/src/models/user.model.js")
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-	User.find({}, (err, data) => {
+	User.find({}, (err: any, data: any) => {
 		if (err) {
 			return next(err)
 		} else {
@@ -28,7 +28,7 @@ router.post(
 		check('email').isEmail()
 
 	],
-	(req, res, next) => {
+	(req: any, res: any, next: any) => {
 		// Finds the validation errors in this request and wraps them in an object with handy functions
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -38,7 +38,7 @@ router.post(
 		User.create({
 			name: req.body.name,
 			email: req.body.email
-		}).then(user => res.json(user));
+		}).then((user: Object) => res.json(user));
 	}
 );
 
@@ -48,7 +48,7 @@ router.post(
 router.get(
 	'/:id',
 	(req, res, next) => {
-		User.find({ _id: req.params.id }).then(user => res.send(user));
+		User.find({ _id: req.params.id }).then((user: Object) => res.send(user));
 	}
 );
 /**
@@ -57,8 +57,8 @@ router.get(
 router.put(
 	'/:id',
 	(req, res, next) => {
-		User.find({ _id: req.params.id }).update(req.body).then(user => res.send(user));
+		User.find({ _id: req.params.id }).update(req.body).then((user: Object) => res.send(user));
 	}
 );
 
-module.exports = router;
+export default router

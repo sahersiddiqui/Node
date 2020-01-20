@@ -1,18 +1,21 @@
 var router = require('express').Router();
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req: any, res: any, next: Object) {
     res.send({ message: "All ok" })
 });
 
-//include all route
-router.use('/user', require('./users'));
+import User from "./users"
+import Category from "./category"
 
-router.use(function (err, req, res, next) {
+//include all route
+router.use('/user', User);
+router.use('/category', Category);
+
+router.use(function (err: any, req: any, res: any, next: CallableFunction) {
     if (err.name === 'ValidationError') {
         return res.status(422).json({
             errors: Object.keys(err.errors).reduce(function (errors, key) {
                 errors[key] = err.errors[key].message;
-
                 return errors;
             }, {})
         });
@@ -20,5 +23,4 @@ router.use(function (err, req, res, next) {
     return next(err);
 });
 
-
-module.exports = router;
+export default router

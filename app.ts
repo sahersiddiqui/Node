@@ -7,8 +7,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var mongoose = require('mongoose');
 
-
-var routes = require('./routes');
+import routes from "./src/routes"
 
 var app = express();
 
@@ -22,19 +21,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //connecting to database
-mongoose.connect('mongodb://localhost:27017/new', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/new', { useNewUrlParser: true, useUnifiedTopology: true }).then((data: any) => {
+
+}).catch((e: any) => {
+  console.log(e)
+});
 mongoose.set('debug', true);
 
 //including routes
 app.use(routes);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req: any, res: any, next: any) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err: any, req: any, res: any, next: any) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -42,5 +45,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.send({ "error": err.toString() });
 });
+
+
+app.listen(3000)
 
 module.exports = app;

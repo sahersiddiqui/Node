@@ -22,4 +22,4 @@ var User = new Schema({
 // Compile model from schema
 var Model = mongoose.model('user', User);
 
-module.exports = Model
+module.exports = Model 
