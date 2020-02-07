@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 mongoose.connect('mongodb://localhost:27017/new', { useNewUrlParser: true, useUnifiedTopology: true }).then((data: any) => {
 
 }).catch((e: any) => {
-  console.log(e)
+  throw e
 });
 mongoose.set('debug', true);
 
